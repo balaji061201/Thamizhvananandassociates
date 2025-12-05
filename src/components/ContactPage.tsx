@@ -137,7 +137,7 @@ export function ContactPage() {
                     >
                       Phone
                     </Typography>
-                    <Typography variant="body2">+91 XXXXX XXXXX</Typography>
+                    <Typography variant="body2">+91 9176645645</Typography>
                   </Box>
                 </Box>
                 <Divider sx={{ my: 2 }} />

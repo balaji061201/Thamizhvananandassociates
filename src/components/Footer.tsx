@@ -98,7 +98,7 @@ export function Footer() {
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                 <PhoneIcon sx={{ fontSize: 20, color: 'secondary.main' }} />
                 <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                  +91 XXXXX XXXXX
+                  +91 9176645645
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
