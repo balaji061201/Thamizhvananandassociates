@@ -16,7 +16,7 @@ import ContactMailIcon from "@mui/icons-material/ContactMail";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import React from "react";
 
-export function HomePage() {
+export function HomePage({ onNavigate }) {
   return (
     <Box>
       {/* Hero Section */}
@@ -97,6 +97,24 @@ export function HomePage() {
                 >
                   Our Services
                 </Button>
+                {/* <Button
+                  variant="outlined"
+                  size="large"
+                  endIcon={<ContactMailIcon />}
+                  sx={{
+                    borderColor: "white",
+                    color: "white",
+                    px: 4,
+                    py: 1.5,
+                    "&:hover": {
+                      borderColor: "white",
+                      bgcolor: "rgba(255, 255, 255, 0.1)",
+                    },
+                  }}
+                >
+                  Get in Touch
+                </Button> */}
+
                 <Button
                   variant="outlined"
                   size="large"
@@ -111,6 +129,7 @@ export function HomePage() {
                       bgcolor: "rgba(255, 255, 255, 0.1)",
                     },
                   }}
+                  onClick={() => onNavigate("Contact")}
                 >
                   Get in Touch
                 </Button>

@@ -89,7 +89,7 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case "Home":
-        return <HomePage />;
+        return <HomePage onNavigate={handlePageChange} />;
       case "About":
         return <AboutPage />;
       case "Services":
@@ -99,7 +99,7 @@ export default function App() {
       case "Contact":
         return <ContactPage />;
       default:
-        return <HomePage />;
+        return <HomePage onNavigate={handlePageChange}/>;
     }
   };
 
