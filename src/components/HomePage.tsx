@@ -14,9 +14,10 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Link } from "react-router-dom";
 import React from "react";
 
-export function HomePage({ onNavigate }) {
+export function HomePage() {
   return (
     <Box>
       {/* Hero Section */}
@@ -118,6 +119,8 @@ export function HomePage({ onNavigate }) {
                 <Button
                   variant="outlined"
                   size="large"
+                  component={Link}
+                  to="/contact"
                   endIcon={<ContactMailIcon />}
                   sx={{
                     borderColor: "white",
@@ -129,7 +132,6 @@ export function HomePage({ onNavigate }) {
                       bgcolor: "rgba(255, 255, 255, 0.1)",
                     },
                   }}
-                  onClick={() => onNavigate("Contact")}
                 >
                   Get in Touch
                 </Button>

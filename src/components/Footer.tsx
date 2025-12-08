@@ -11,6 +11,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import { Link } from 'react-router-dom';
 import React from 'react';
 
 export function Footer() {
@@ -36,31 +37,86 @@ export function Footer() {
           </Grid>
 
           {/* Quick Links */}
-          <Grid size={{ xs: 12, sm: 6 ,md: 2 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 2 }}>
             <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
               Quick Links
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Typography variant="body2" sx={{ opacity: 0.9, cursor: 'pointer', '&:hover': { color: 'secondary.main' } }}>
+              <Typography
+                component={Link}
+                to="/"
+                variant="body2"
+                sx={{
+                  opacity: 0.9,
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  '&:hover': { color: 'secondary.main' },
+                }}
+              >
                 Home
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, cursor: 'pointer', '&:hover': { color: 'secondary.main' } }}>
+              <Typography
+                component={Link}
+                to="/about"
+                variant="body2"
+                sx={{
+                  opacity: 0.9,
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  '&:hover': { color: 'secondary.main' },
+                }}
+              >
                 About
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, cursor: 'pointer', '&:hover': { color: 'secondary.main' } }}>
+              <Typography
+                component={Link}
+                to="/services"
+                variant="body2"
+                sx={{
+                  opacity: 0.9,
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  '&:hover': { color: 'secondary.main' },
+                }}
+              >
                 Services
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, cursor: 'pointer', '&:hover': { color: 'secondary.main' } }}>
+              <Typography
+                component={Link}
+                to="/experience"
+                variant="body2"
+                sx={{
+                  opacity: 0.9,
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  '&:hover': { color: 'secondary.main' },
+                }}
+              >
                 Experience
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, cursor: 'pointer', '&:hover': { color: 'secondary.main' } }}>
+              <Typography
+                component={Link}
+                to="/contact"
+                variant="body2"
+                sx={{
+                  opacity: 0.9,
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  '&:hover': { color: 'secondary.main' },
+                }}
+              >
                 Contact
               </Typography>
             </Box>
           </Grid>
 
           {/* Services */}
-          <Grid size={{ xs: 12, sm: 6 ,md: 3 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
               Our Services
             </Typography>
@@ -118,7 +174,7 @@ export function Footer() {
           <Typography variant="body2" sx={{ opacity: 0.8 }}>
             © 2024 CS R. Thamizhvanan ACA., ACS. All rights reserved.
           </Typography>
-          
+
           <Box sx={{ display: 'flex', gap: 1 }}>
             <IconButton
               sx={{

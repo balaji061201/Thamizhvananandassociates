@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -15,6 +14,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 import "./styles/globals.css";
 import { HomePage } from "./components/HomePage";
 import { AboutPage } from "./components/AboutPage";
@@ -44,25 +45,30 @@ const theme = createTheme({
   spacing: 8,
 });
 
-const pages = ["Home", "About", "Services", "Experience", "Contact"];
+const pages = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Experience", path: "/experience" },
+  { name: "Contact", path: "/contact" },
+];
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState("Home");
+function AppContent() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const location = useLocation();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handlePageChange = (page: string) => {
-    setCurrentPage(page);
+  const handleDrawerClose = () => {
     setMobileOpen(false);
   };
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2, color: "primary.main", display: "flex", alignItems: "center", justifyContent: "center", gap: 1, flexDirection: "column" }}>  
+      <Typography variant="h6" sx={{ my: 2, color: "primary.main", display: "flex", alignItems: "center", justifyContent: "center", gap: 1, flexDirection: "column" }}>
         <img
           src="/assets/images/CSLogo.png"
           alt="Company Secratary Logo"
@@ -72,13 +78,15 @@ export default function App() {
       </Typography>
       <List>
         {pages.map((page) => (
-          <ListItem key={page} disablePadding>
+          <ListItem key={page.name} disablePadding>
             <ListItemButton
+              component={Link}
+              to={page.path}
               sx={{ textAlign: "center" }}
-              onClick={() => handlePageChange(page)}
-              selected={currentPage === page}
+              onClick={handleDrawerClose}
+              selected={location.pathname === page.path}
             >
-              <ListItemText primary={page} />
+              <ListItemText primary={page.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -86,123 +94,126 @@ export default function App() {
     </Box>
   );
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case "Home":
-        return <HomePage onNavigate={handlePageChange} />;
-      case "About":
-        return <AboutPage />;
-      case "Services":
-        return <ServicesPage />;
-      case "Experience":
-        return <ExperiencePage />;
-      case "Contact":
-        return <ContactPage />;
-      default:
-        return <HomePage onNavigate={handlePageChange}/>;
-    }
-  };
+  return (
+    <Box
+      sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
+      <AppBar position="sticky" elevation={2}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component={Link}
+              to="/"
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                fontWeight: 600,
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              <img
+                src="/assets/images/CSLogo-white.png"
+                alt="Company Secratary Logo"
+                className="CSLogo"
+              />
+              R. Thamizhvanan ACA., ACS.
+            </Typography>
 
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="menu"
+                onClick={handleDrawerToggle}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+
+            <Typography
+              variant="h6"
+              noWrap
+              component={Link}
+              to="/"
+              sx={{
+                flexGrow: 1,
+                display: { xs: "flex", md: "none" },
+                fontWeight: 600,
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              CS R. Thamizhvanan
+            </Typography>
+
+            <Box sx={{ display: { xs: "none", md: "flex" }, gap: 1 }}>
+              {pages.map((page) => (
+                <Button
+                  key={page.name}
+                  component={Link}
+                  to={page.path}
+                  sx={{
+                    color: "white",
+                    display: "block",
+                    px: 2,
+                    backgroundColor:
+                      location.pathname === page.path
+                        ? "rgba(255, 255, 255, 0.1)"
+                        : "transparent",
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.2)",
+                    },
+                  }}
+                >
+                  {page.name}
+                </Button>
+              ))}
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
+        }}
+      >
+        {drawer}
+      </Drawer>
+
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/experience" element={<ExperiencePage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </Box>
+
+      <Footer />
+    </Box>
+  );
+}
+
+export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Cursor />
-      <Box
-        sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      >
-        <AppBar position="sticky" elevation={2}>
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{
-                  flexGrow: 1,
-                  display: { xs: "none", md: "flex" },
-                  fontWeight: 600,
-                  color: "white",
-                }}
-              >
-                <img
-                  src="/assets/images/CSLogo-white.png"
-                  alt="Company Secratary Logo"
-                  className="CSLogo"
-                />
-                R. Thamizhvanan ACA., ACS.
-              </Typography>
-
-              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="menu"
-                  onClick={handleDrawerToggle}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Box>
-
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{
-                  flexGrow: 1,
-                  display: { xs: "flex", md: "none" },
-                  fontWeight: 600,
-                }}
-              >
-                CS R. Thamizhvanan
-              </Typography>
-
-              <Box sx={{ display: { xs: "none", md: "flex" }, gap: 1 }}>
-                {pages.map((page) => (
-                  <Button
-                    key={page}
-                    onClick={() => handlePageChange(page)}
-                    sx={{
-                      color: "white",
-                      display: "block",
-                      px: 2,
-                      backgroundColor:
-                        currentPage === page
-                          ? "rgba(255, 255, 255, 0.1)"
-                          : "transparent",
-                      "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.2)",
-                      },
-                    }}
-                  >
-                    {page}
-                  </Button>
-                ))}
-              </Box>
-            </Toolbar>
-          </Container>
-        </AppBar>
-
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: "block", md: "none" },
-            "& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
-          }}
-        >
-          {drawer}
-        </Drawer>
-
-        <Box component="main" sx={{ flexGrow: 1 }}>
-          {renderPage()}
-        </Box>
-
-        <Footer />
-      </Box>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
